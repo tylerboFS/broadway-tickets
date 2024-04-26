@@ -16,6 +16,22 @@ const createUser = async (user) => {
   }
 };
 
+const getUserByUsername = async (username) => {
+  try{
+    const user = await prisma.user.findUnique({
+      where:{
+        username
+      }
+    })
+    return user;
+  }
+  catch(err){
+    console.log("Error getting user", err);
+    return undefined;
+  }
+}
+
 module.exports = {
-  createUser
+  createUser,
+  getUserByUsername
 }
