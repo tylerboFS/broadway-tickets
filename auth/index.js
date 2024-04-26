@@ -1,7 +1,7 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { getUserByUsername } = require("../prisma/client");
+const { getUserByUsername } = require("../prisma/users");
 const { requireUser } = require("../utils/utils");
 
 const authRouter = express.Router();

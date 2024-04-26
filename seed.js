@@ -1,5 +1,9 @@
 const bcrypt = require("bcrypt");
-const { createUser } = require("./prisma/client");
+const { createUser } = require("./prisma/users");
+const { createProduction } = require("./prisma/productions");
+
+const users = [];
+const productions = [];
 
 const addUsers = async () => {
   console.log("Adding Users");
@@ -22,11 +26,26 @@ const addUsers = async () => {
     password: bcrypt.hashSync("dr0pOfG0ldenSun", 10),
   };
 
-  await createUser(user1);
-  await createUser(user2);
-  await createUser(user3);
+  users.push(await createUser(user1));
+  users.push(await createUser(user2));
+  users.push(await createUser(user3));
 
   console.log("Done adding users");
+};
+
+const addProductions = async () => {
+  const prod1 = {
+    venue: "James Earl Jones Theater",
+    title: "Gutenberg! The Musical!",
+    runTimeMinutes: 110,
+  };
+  const prod2 = {
+    venue: "Winter Garden",
+    title: "Cabaret",
+    runTimeMinutes: 130,
+  };
+  productions.push(await createProduction(prod1));
+  productions.push(await createProduction(prod2));
 };
 
 const seed = async () => {
@@ -34,6 +53,9 @@ const seed = async () => {
 
   //create some users
   await addUsers();
+
+  //create some productions
+  await addProductions();
 
   console.log("Ending Seed");
 };

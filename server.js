@@ -8,7 +8,9 @@ const jwt = require("jsonwebtoken");
 const PORT = process.env.PORT || 3000;
 
 const authRouter = require("./auth");
-const { getUserByUsername } = require("./prisma/client");
+const apiRouter = require("./api");
+
+const { getUserByUsername } = require("./prisma/users");
 
 app.use(morgan("dev"));
 
@@ -43,6 +45,7 @@ app.get("/", function (req, res) {
 });
 
 app.use("/auth", authRouter);
+app.use("/api", apiRouter);
 
 app.listen(PORT, () => {
   console.log("Server is listening on port " + PORT);
